@@ -51,10 +51,9 @@ var financeController = (function () {
     addItem: function (type, desc, val) {
       var item, id;
 
-      if (data.items[type].length === 0) {
-        id = 1;
-      } else {
-        id = data.items[type][data.item[type].length - 1].id + 1;
+      if (data.items[type].length === 0) id = 1;
+      else {
+        id = data.items[type][data.items[type].length - 1].id + 1;
       }
 
       if (type === "inc") {
@@ -73,27 +72,25 @@ var financeController = (function () {
 
 // Програмын холбогч контроллер
 var appController = (function (uiController, financeController) {
+  var DOM = uiController.getDOMstrings();
   ctrlAddItem = function () {
     //1. Оруулах өгөгдлийг дэлгэцээс олж авна.
     var input = uiController.getInput();
     // 2. олж авсан өгөгдлүүдээ санхүүгийн контроллерт дамжуулж тэнд хадгална.
     financeController.addItem(input.type, input.description, input.value);
-    financeController.seeData();
-    // console.log(input.description);
+
     // 3.Олж авсан өгөгдлүүдээ вэб дээрээ тохирох хэсэгт гаргана.
     // Төсвийг тооцоолно.
     // 5.Эцсийн үлдэгдэл тооцоог дэлгэцэнд  гаргана.
   };
 
   var setupEventListeners = function () {
-    var DOM = uiController.getDOMstrings();
-
     document.querySelector(DOM.addBtn).addEventListener("click", function () {
       ctrlAddItem();
     });
 
     document.addEventListener("keypress", function (event) {
-      if (event.code === 13 || event.which === 13) {
+      if (event.code === 13) {
         ctrlAddItem();
       }
     });
