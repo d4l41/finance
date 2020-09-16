@@ -22,13 +22,26 @@ var uiController = (function () {
 
     addListItem: function (item, type) {
       // Орлого зарлагын элементийг агуулсан html-ийг бэлтгэнэ.
-      var html;
+      var html, list;
 
-      if (type === inc) {
-        ("");
+      if (type === "inc") {
+        list = ".income__list";
+        html =
+          '<div class="item clearfix" id="%id%"><div class="item__description">%desc%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+      } else {
+        list = ".expenses__list";
+        html =
+          '<div class="item clearfix" id="%id%"><div class="item__description">%desc%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div>div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
-      // Тэр HTML дотроо орлого зарлагуудын утгуудыг REPLACE ашиглана
+
+      // Тэр HTML дотроо орлого зарлагуудын утгуудыг REPLACE ашиглаж солино.
+      html = html.replace("%id%", item.id);
+      html = html.replace("%desc%", item.description);
+      html = html.replace("%value%", item.value);
+
       // Бэлтгэсэн HTML ээ DOM руу хийж өгнө.
+      document.querySelector(list).insertAdjacentHTML("beforeend", html);
+      // console.log(html);
     },
   };
 })();
