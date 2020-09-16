@@ -19,6 +19,17 @@ var uiController = (function () {
     getDOMstrings: function () {
       return DOMstrings;
     },
+
+    addListItem: function (item, type) {
+      // Орлого зарлагын элементийг агуулсан html-ийг бэлтгэнэ.
+      var html;
+
+      if (type === inc) {
+        ("");
+      }
+      // Тэр HTML дотроо орлого зарлагуудын утгуудыг REPLACE ашиглана
+      // Бэлтгэсэн HTML ээ DOM руу хийж өгнө.
+    },
   };
 })();
 
@@ -62,6 +73,8 @@ var financeController = (function () {
         item = new Expense(id, desc, val);
       }
       data.items[type].push(item);
+
+      return item;
     },
 
     seeData: function () {
@@ -77,9 +90,14 @@ var appController = (function (uiController, financeController) {
     //1. Оруулах өгөгдлийг дэлгэцээс олж авна.
     var input = uiController.getInput();
     // 2. олж авсан өгөгдлүүдээ санхүүгийн контроллерт дамжуулж тэнд хадгална.
-    financeController.addItem(input.type, input.description, input.value);
+    var item = financeController.addItem(
+      input.type,
+      input.description,
+      input.value
+    );
 
     // 3.Олж авсан өгөгдлүүдээ вэб дээрээ тохирох хэсэгт гаргана.
+    uiController.addListItem(item, input.type);
     // Төсвийг тооцоолно.
     // 5.Эцсийн үлдэгдэл тооцоог дэлгэцэнд  гаргана.
   };
